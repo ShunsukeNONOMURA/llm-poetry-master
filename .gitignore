@@ -1,6 +1,3 @@
-# resource
-models
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -123,7 +120,7 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+# .env # llama-cpp-python のビルド用で含める
 .venv
 env/
 venv/

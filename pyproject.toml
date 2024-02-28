@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "llm-poetry"
+name = "app"
 version = "0.1.0"
 description = ""
 authors = ["ShunsukeNONOMURA <shunsuke.nonomura@gmail.com>"]
