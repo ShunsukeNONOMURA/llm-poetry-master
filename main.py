@@ -1,17 +1,7 @@
+from fastapi import FastAPI
 import gradio as gr
-
-from pprint import pprint
-
-# from app import *
-
-from pathlib import Path
-import os
-import platform
-import sys
-import subprocess as sp
-import shutil
-
 from llama_cpp import Llama
+
 
 DEFAULT_MAX_TOKENS = -1 # -1 = infinity
 # current_model_path = "./models/ELYZA-japanese-Llama-2-7b-fast-instruct-q8_0.gguf"
@@ -51,12 +41,27 @@ def predict(message, history):
             partial_message += message['content']
             yield partial_message
 
-with gr.ChatInterface(predict).queue() as demo:
-    # gr.ChatInterface(predict).queue()
-    pass
+def create_interface():
+    with gr.ChatInterface(predict).queue() as demo:
+        # gr.ChatInterface(predict).queue()
+        pass
+    return demo
 
-if __name__ == "__main__":
-    demo.launch(
-        server_port = 27860,
-        share=True
-    )
+demo = create_interface()
+app = FastAPI()
+
+@app.get("/health")
+async def hello():
+    return {"message": "ok"}
+
+app = gr.mount_gradio_app(app, demo, path="/")
+
+# import uvicorn
+# import os
+# if __name__ == "__main__":
+#     # mounting at the root path
+#     uvicorn.run(
+#         app="main:app",
+#         # host=os.getenv("UVICORN_HOST"),  
+#         port=int(os.getenv("UVICORN_PORT"))
+#     )
