@@ -10,8 +10,17 @@ python = "^3.10"
 llama-cpp-python = "^0.2.53"
 gradio = "^4.19.2"
 langchain = "^0.1.9"
-
+pytest = "^8.0.2"
+pytest-cov = "^4.1.0"
+fastapi = "^0.110.0"
 
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.pytest.ini_options]
+filterwarnings = [
+    "ignore::DeprecationWarning", # 非推奨記述の無視
+]
+testpaths = ["tests",]
+addopts = "--cov=app"
